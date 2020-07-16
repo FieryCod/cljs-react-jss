@@ -1,6 +1,7 @@
 node_modules/
 public/js
 package-lock.json
+out
 /target
 /checkouts
 /src/gen

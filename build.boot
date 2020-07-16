@@ -1,6 +1,7 @@
+
 (set-env!
-  ;; :resource-paths #{"resources"}
-  :dependencies '[[cljsjs/boot-cljsjs "0.10.5" :scope "test"]])
+ :resource-paths #{"resources"}
+ :dependencies '[[cljsjs/boot-cljsjs "0.10.5" :scope "test"]])
 
 (require '[cljsjs.boot-cljsjs.packaging :refer :all])
 
@@ -10,22 +11,32 @@
 (task-options!
  pom  {:project     'cljsjs/react-jss
        :version     +version+
-       :description "Support for colocating your styles with your JavaScript component."
-       :url         "https://github.com/Khan/aphrodite"
-       :scm         {:url "https://github.com/Khan/aphrodite"}
+       :description "A lib for generating Style Sheets with JavaScript."
+       :url         "https://github.com/cssinjs/jss"
+       :scm         {:url "https://github.com/cssinjs/jss"}
        :license     {"MIT" "http://opensource.org/licenses/MIT"}})
+
+(defn download-react-jss []
+  (comp
+   (download :url (format "https://raw.githubusercontent.com/FieryCod/cljs-react-jss/master/resources/cljsjs/react-jss.js")
+             :target (format "cljsjs/react-jss/development/react-jss.inc.js"))
+   (download :url (format "https://raw.githubusercontent.com/FieryCod/cljs-react-jss/master/resources/cljsjs/react-jss.min.js")
+             :target (format "cljsjs/react-jss/production/react-jss.min.inc.js"))))
+
+(deftask package-react-jss []
+  (with-files (fn [x] (#{"react-jss.ext.js"} (.getName (tmp-file x))))
+    (comp
+     (download-react-jss)
+     (deps-cljs :provides ["ReactJSS" "cljsjs.react-jss"]
+                :requires []
+                :global-exports '{react-jss ReactJSS})
+     (pom :project 'cljsjs/react-jss
+          :dependencies [['cljsjs/react "16.13.1-0"]])
+     (show :fileset true)
+     (jar))))
+
 
 (deftask package []
   (comp
-   (download :url (format "https://unpkg.com/react-jss@%s/dist/react-jss.js" +lib-version+)
-             :checksum "A051A8D8A4EC46517CE90A849A3522E9"
-             )
-   (download :url (format "https://unpkg.com/react-jss@%s/dist/react-jss.min.js" +lib-version+)
-             :checksum "3501E642EEB2F7A5493F27FD2D68F473"
-             )
-   (sift :move {#"react-jss\.js" "cljsjs/react-jss/development/react-jss.inc.js"
-                #"react-jss\.min\.js" "cljsjs/react-jss/development/react-jss.min.inc.js"})
-   (sift :include #{#"^cljsjs"})
-   (deps-cljs :name "cljsjs.react-jss")
-   (pom)
-   (jar)))
+   (package-react-jss)
+   (validate)))

@@ -1,1 +1,0 @@
-ReactJSS = require('react-jss');

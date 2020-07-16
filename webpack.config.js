@@ -1,10 +1,12 @@
 const path = require('path');
 
 const DEFAULT_CONFIG = {
-    entry: './resources/react-jss.js',
+    entry: './resources/webpack-compile/react-jss.js',
     output: {
         filename: 'react-jss.js',
-        path: path.resolve(__dirname, 'public'),
+        path: path.resolve(__dirname, 'resources', 'cljsjs'),
+        library: 'ReactJSS',
+        libraryExport: 'default'
     },
     externals: {
         "react": "React"
