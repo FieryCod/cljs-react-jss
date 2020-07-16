@@ -1,0 +1,10 @@
+;; shadow-cljs configuration
+{:lein {:profile "dev"}
+
+ :dev-http {8080 "public"}
+
+ :builds {:dev {:target :browser
+                :devtools {:repl-init-ns css-cljs.repl
+                           :repl-pprint true}
+                :compiler-options {:infer-externs :auto}
+                :modules {:main {:init-fn css-cljs.core/-main}}}}}
