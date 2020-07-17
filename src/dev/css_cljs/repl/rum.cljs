@@ -27,8 +27,7 @@
 
 (def StyledInnerView ((crum/with-styles
                         (fn [theme]
-                          {:wrapper {:padding "20px"}})
-                        {:injectTheme true})
+                          {:wrapper {:padding "20px"}}))
                       InnerView))
 
 

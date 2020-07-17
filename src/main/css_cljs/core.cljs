@@ -1,7 +1,7 @@
 (ns css-cljs.core
   (:require-macros
    [css-cljs.core :refer [react-tag->cljs-tag
-                            js-constructor->cljs-fn]])
+                          js-constructor->cljs-fn]])
   (:require
    [cljsjs.react-jss]
    [cljs-bean.core :refer [->js ->clj bean]]))

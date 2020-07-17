@@ -27,4 +27,4 @@ var ReactJSS = {
     "withTheme": function () {},
 };
 
-ReactJSS.SheetsRegistry.prototype.toString = function () {};
+// ReactJSS.SheetsRegistry.prototype.toString = function () {};

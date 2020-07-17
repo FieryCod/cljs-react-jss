@@ -13,6 +13,7 @@
                  [thheller/shadow-cljs "2.10.14" :scope "provided"]
                  [cljs-bean "1.5.0"]]
 
+  :resource-paths []
 
   :source-paths ["src/main"]
   :test-paths ["test/main"]

@@ -6,8 +6,8 @@ out
 /checkouts
 /src/gen
 .clj-kondo/.cache
-pom.xml
 pom.xml.asc
+cljs-out
 *.iml
 *.jar
 *.log
