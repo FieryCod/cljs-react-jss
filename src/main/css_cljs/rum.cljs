@@ -1,9 +1,7 @@
 (ns css-cljs.rum
   (:require
-   [cljsjs.react-jss]
-   [rum.core :as rum]
    [cljs-bean.core :refer [bean]]
-   [css-cljs.shared :as csh]))
+   [css-cljs.core :as csh]))
 
 (defn- NormalizeStylesheetWrapper
   [component & component-args]
@@ -14,7 +12,7 @@
   [styles-or-fn & [opts]]
   (fn [comp]
     (fn [& comp-args]
-      (js/React.createElement ((js/withStyles styles-or-fn opts)
+      (js/React.createElement ((#'csh/with-styles styles-or-fn opts)
                                (apply NormalizeStylesheetWrapper comp comp-args))
                               #js {}
-                          nil))))
+                              nil))))

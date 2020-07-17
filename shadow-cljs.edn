@@ -4,7 +4,7 @@
  :dev-http {8080 "public"}
 
  :builds {:dev {:target :browser
-                :devtools {:repl-init-ns css-cljs.repl
+                :devtools {:repl-init-ns css-cljs.repl.core
                            :repl-pprint true}
                 :compiler-options {:infer-externs :auto}
-                :modules {:main {:init-fn css-cljs.core/-main}}}}}
+                :modules {:main {:init-fn css-cljs.repl.core/-main}}}}}

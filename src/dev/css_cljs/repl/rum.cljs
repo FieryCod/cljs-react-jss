@@ -1,6 +1,7 @@
-(ns css-cljs.repl
+(ns css-cljs.rum
   (:require
    [css-cljs.reagent :as creg]
+   [css-cljs.shared :as csh]
    [css-cljs.rum :as crum]
    [rum.core :as rum]
    [reagent.dom :as rd]))
@@ -26,7 +27,6 @@
 
 (def StyledInnerView ((crum/with-styles
                         (fn [theme]
-                          (println "XDD" theme)
                           {:wrapper {:padding "20px"}})
                         {:injectTheme true})
                       InnerView))
@@ -40,7 +40,5 @@
                                      (assoc-in ViewStyles [:wrapper] (:default-font-color theme))))
                  View))
 
-
-(rum/mount (crum/ThemeProvider {:theme {:default-font-color {:color "red"}}}
-                               (StyledView 1))
+(rum/mount (csh/ThemeProvider {:theme {:default-font-color {:color "red"}}} (StyledView 1))
            (js/document.getElementById "root"))

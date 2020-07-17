@@ -2,4 +2,4 @@
   (:require
    [react-jss :as rjss]))
 
-(println rjss/withStyles)
+(js/goog.exportSymbol "ReactJSS" rjss)

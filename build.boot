@@ -27,8 +27,8 @@
   (with-files (fn [x] (#{"react-jss.ext.js"} (.getName (tmp-file x))))
     (comp
      (download-react-jss)
-     (deps-cljs :provides ["ReactJSS" "cljsjs.react-jss"]
-                :requires []
+     (deps-cljs :provides ["react-jss" "cljsjs.react-jss"]
+                :requires ["react"]
                 :global-exports '{react-jss ReactJSS})
      (pom :project 'cljsjs/react-jss
           :dependencies [['cljsjs/react "16.13.1-0"]])

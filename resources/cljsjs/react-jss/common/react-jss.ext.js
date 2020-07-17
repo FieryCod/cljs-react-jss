@@ -26,3 +26,5 @@ var ReactJSS = {
     "withStyles": function () {},
     "withTheme": function () {},
 };
+
+ReactJSS.SheetsRegistry.prototype.toString = function () {};

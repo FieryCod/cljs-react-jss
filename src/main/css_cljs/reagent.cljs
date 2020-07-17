@@ -1,9 +1,8 @@
-
-;; (ns css-cljs.reagent
-;;   (:require
-;;    [cljs-bean.core :refer [bean ->clj]]
-;;    [reagent.core :as r]
-;;    [css-cljs.shared :as csh]))
+(ns css-cljs.reagent
+  (:require
+   [cljs-bean.core :refer [bean ->clj]]
+   [reagent.core :as r]
+   [css-cljs.shared :as csh]))
 
 ;; (defn- NormalizeStylesheetWrapper
 ;;   [component]
