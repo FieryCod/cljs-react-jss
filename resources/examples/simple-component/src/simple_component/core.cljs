@@ -1,11 +1,14 @@
 (ns ^:figwheel-hooks simple-component.core
   (:require
-   [cljsjs.react-jss]
+   ["react-jss" :as react-jss]
    [css-cljs.rum :as crum]
    [css-cljs.core :as csc]
    [goog.dom :as gdom]
    [rum.core :as rum]))
 
+(js/console.log react-jss)
+
+;; (set! *warn-on-infer* true)
 
 (println "This text is printed from src/simple_component/core.cljs. Go ahead and edit it and see reloading in action.")
 
@@ -19,7 +22,6 @@
 
 (rum/defc HelloWorld
   [classes]
-  (println classes)
   [:div {:class (:wrapper classes)}
    [:h1 (:text @app-state)]
    [:h3 "Edit this in src/simple_component/core.cljs and watch it change!"]])

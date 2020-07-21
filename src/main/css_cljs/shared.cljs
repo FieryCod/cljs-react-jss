@@ -1,24 +1,17 @@
-(ns css-cljs.core
-  (:require-macros
-   [css-cljs.core :refer [react-tag->cljs-tag
-                          js-constructor->cljs-fn]])
+(ns css-cljs.shared
   (:require
-   [cljsjs.react-jss]
+   [react-jss :as rjss]
    [cljs-bean.core :refer [->js ->clj bean]]))
 
 (defn- with-styles
   ([styles-or-fn]
    (with-styles styles-or-fn {}))
   ([styles-or-fn opts]
-   (js/ReactJSS.withStyles
+   (rjss/withStyles
     (if (fn? styles-or-fn)
       (fn [^js theme] (->js (styles-or-fn (->clj (bean theme)))))
       (->js styles-or-fn))
     (->js (or opts {})))))
-
-(react-tag->cljs-tag "ThemeProvider" js/ReactJSS.ThemeProvider)
-(react-tag->cljs-tag "JSSProvider" js/ReactJSS.JssProvider)
-(js-constructor->cljs-fn "sheets-registry" js/ReactJSS.SheetsRegistry)
 
 (defn sheets-registry->ssr-css-tag
   [^js sheets-registry]

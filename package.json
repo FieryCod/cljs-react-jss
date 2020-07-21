@@ -1,12 +1,15 @@
 {
   "devDependencies": {
-    "shadow-cljs": "2.10.14",
+    "externs-generator": "^0.3.4",
+    "rollup": "^2.22.1",
+    "rollup-plugin-terser": "^6.1.0",
+    "shadow-cljs": "2.10.17",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-      "react-jss": "^10.3.0",
-      "react": "16.13.0",
-      "react-dom": "16.13.0"
+    "react": "16.13.0",
+    "react-dom": "16.13.0",
+    "react-jss": "^10.3.0"
   }
 }

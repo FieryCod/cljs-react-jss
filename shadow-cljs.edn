@@ -5,6 +5,7 @@
 
  :builds {:dev {:target :browser
                 :devtools {:repl-init-ns css-cljs.repl.core
+                           :after-load css-cljs.repl.core/-main
                            :repl-pprint true}
                 :compiler-options {:infer-externs :auto}
                 :modules {:main {:init-fn css-cljs.repl.core/-main}}}}}

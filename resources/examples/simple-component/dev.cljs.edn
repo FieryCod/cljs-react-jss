@@ -2,5 +2,7 @@
   :css-dirs ["resources/public/css"]
   :auto-testing true}
 {:main simple-component.core
- :output-to "resources/public/cljs-out/dev-main.js"
- :source-map "resources/public/cljs-out/dev-main.map.js"}
+ :infer-externs true
+ ;; :output-to "resources/public/cljs-out/dev-main.js"
+ ;; :source-map "resources/public/cljs-out/dev-main.map.js"
+ }

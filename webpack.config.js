@@ -6,7 +6,8 @@ const DEFAULT_CONFIG = {
         filename: 'react-jss.js',
         path: path.resolve(__dirname, 'resources', 'cljsjs'),
         library: 'ReactJSS',
-        libraryExport: 'default'
+        libraryTarget: 'umd',
+        globalObject: 'this'
     },
     externals: {
         "react": "React"
