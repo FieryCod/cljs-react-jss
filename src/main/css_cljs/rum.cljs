@@ -10,10 +10,10 @@
    [css-cljs.impl :as impl]))
 
 (react-tag->cljs-tag "ThemeProvider" rjss/ThemeProvider)
-
 (react-tag->cljs-tag "JSSProvider" rjss/JssProvider)
-
 (js-constructor->cljs-fn "sheets-registry" rjss/SheetsRegistry)
+(def sheets-registry->ssr-css-tag impl/sheets-registry->ssr-css-tag)
+(def client-remove-ssr-css-tag impl/client-remove-ssr-css-tag)
 
 (defn- React->ReactWrapped
   [component & component-args]

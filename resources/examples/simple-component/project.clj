@@ -10,7 +10,7 @@
                  [org.clojure/clojurescript "1.10.520"]
                  [rum "0.12.3"]
                  [cljsjs/react-jss "10.3.0-0"]
-                 [fierycod/cljs-react-jss "0.0.1" :exclusions [cljsjs/react-jss]]]
+                 [fierycod/cljs-react-jss "0.0.1"]]
 
   :source-paths ["src"]
 
