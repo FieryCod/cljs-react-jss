@@ -1,6 +1,5 @@
 (ns css-cljs.repl.rum
   (:require
-   [css-cljs.shared :as csh]
    [css-cljs.rum :as crum]
    [rum.core :as rum]))
 
@@ -11,19 +10,19 @@
   [classes title]
   [:div {:class (:wrapper classes)} title])
 
-(def StyledInnerView ((crum/with-styles
-                        (fn [theme]
-                          {:wrapper {:padding "20px"}}))
-                      InnerView))
+(crum/defstyled StyledInnerView
+  [(crum/with-styles {:wrapper {:padding "20px"}}) InnerView])
 
 
 (rum/defc View
-  [classes & args]
+  [classes]
   [:div {:class [(:wrapper classes)]} (StyledInnerView "InnerView")])
 
-(def StyledView ((crum/with-styles (fn [theme]
-                                     (assoc-in ViewStyles [:wrapper] (:default-font-color theme))))
-                 View))
+(crum/defstyled StyledView
+  [(crum/with-styles (fn [theme]
+                       (assoc-in ViewStyles [:wrapper] (:default-font-color theme))))
+   View])
 
-(rum/mount (crum/ThemeProvider {:theme {:default-font-color {:color "red"}}} (StyledView 1))
-           (js/document.getElementById "root"))
+(rum/mount
+ (crum/ThemeProvider {:theme {:default-font-color {:color "red"}}} (StyledView 1))
+ (js/document.getElementById "root"))

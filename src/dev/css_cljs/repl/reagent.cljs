@@ -10,21 +10,21 @@
    title
    [component]])
 
-(def InnerViewStyled ((creg/with-styles
-                        {:wrapper {:color "red"}})
-                      InnerView))
+(creg/defstyled InnerViewStyled
+  [(creg/with-styles {:wrapper {:color "red"}}) InnerView])
+
 (defn AnotherComponent
   [classes]
   [:div {:class (:wrapper classes)} "Another component"])
 
-(def AnotherComponentStyled ((creg/with-styles {:wrapper {:color "orange"}}) AnotherComponent))
+(creg/defstyled AnotherComponentStyled
+  [(creg/with-styles {:wrapper {:color "orange"}}) AnotherComponent])
 
 (defn View
   [classes]
   [:div {:class [(:wrapper classes)]} [InnerViewStyled "InnerView" AnotherComponentStyled]])
 
-(def ViewStyled ((creg/with-styles
-                   {:wrapper {:padding "20px"}})
-                 View))
+(creg/defstyled ViewStyled
+  [(creg/with-styles {:wrapper {:padding "20px"}}) View])
 
 (rd/render [creg/ThemeProvider {:theme {:background-color "red"}} [ViewStyled]] (js/document.getElementById "root"))

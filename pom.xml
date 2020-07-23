@@ -17,7 +17,7 @@
     <url>https://github.com/FieryCod/cljs-react-jss</url>
     <connection>scm:git:git://github.com/FieryCod/cljs-react-jss.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/FieryCod/cljs-react-jss.git</developerConnection>
-    <tag>1ac6c68bbdec9f5ebd7bfc2cdeb177a0b6bb9fa9</tag>
+    <tag>fc34063cad9157459c3337a61a350958dd57715b</tag>
   </scm>
   <build>
     <sourceDirectory>src/main</sourceDirectory>
@@ -67,25 +67,13 @@
     <dependency>
       <groupId>thheller</groupId>
       <artifactId>shadow-cljs</artifactId>
-      <version>2.10.14</version>
+      <version>2.10.17</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>cljs-bean</groupId>
       <artifactId>cljs-bean</artifactId>
       <version>1.5.0</version>
-    </dependency>
-    <dependency>
-      <groupId>cider</groupId>
-      <artifactId>cider-nrepl</artifactId>
-      <version>0.25.3-SNAPSHOT</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>refactor-nrepl</groupId>
-      <artifactId>refactor-nrepl</artifactId>
-      <version>2.5.0</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>rum</groupId>
@@ -97,12 +85,6 @@
       <groupId>reagent</groupId>
       <artifactId>reagent</artifactId>
       <version>1.0.0-alpha2</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>nrepl</groupId>
-      <artifactId>nrepl</artifactId>
-      <version>0.8.0-alpha5</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

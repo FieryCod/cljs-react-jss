@@ -1,12 +1,14 @@
 (ns css-cljs.reagent
-  (:require-macros [css-cljs.macros :refer [js-constructor->cljs-fn]])
+  (:require-macros
+   [css-cljs.reagent]
+   [css-cljs.macros :refer [js-constructor->cljs-fn]])
   (:require
    [cljs-bean.core :refer [bean]]
    [react-jss :as rjss]
    [reagent.core :as r]
-   [css-cljs.shared :as csh]))
+   [css-cljs.impl :as impl]))
 
-(defn- NormalizeStylesheetWrapper
+(defn- React->ReactWrapped
   [component]
   (fn [props]
     (let [children (:children props)]
@@ -19,14 +21,14 @@
 (defn with-styles
   [styles-or-fn & [opts]]
   (fn [component]
+    (assert (not= (meta component) nil) "Component should be wrapped with styles using (css-cljs.reagent/defstyled ~component-name [styles-wrap component-to-wrap])")
     (r/adapt-react-class
-     ((#'csh/with-styles styles-or-fn opts)
-      (r/reactify-component (NormalizeStylesheetWrapper component))))))
+     (impl/set-display-name
+      ((impl/with-styles styles-or-fn opts)
+       (r/reactify-component
+        (with-meta (React->ReactWrapped component) (meta component))))
+      "JssContextSubscriber"))))
 
 (def ThemeProvider (r/adapt-react-class rjss/ThemeProvider))
-
 (def JSSProvider (r/adapt-react-class rjss/JssProvider))
-
 (js-constructor->cljs-fn "sheets-registry" rjss/SheetsRegistry)
-
-;; ;; No support for SSR for that moment

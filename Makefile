@@ -19,6 +19,6 @@ shadow:
 	@yarn shadow-cljs -d "nrepl:0.8.0-alpha5" \
 		 							  -d "cider/piggieback:0.5.0" \
 		                -d "com.billpiel/sayid:0.0.18" \
-	                  -d	"refactor-nrepl:2.5.0" \
+	                  -d "refactor-nrepl:2.5.0" \
 	                  -d "cider/cider-nrepl:0.25.3-SNAPSHOT" \
                     server
