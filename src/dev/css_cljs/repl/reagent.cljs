@@ -1,7 +1,6 @@
 (ns css-cljs.repl.reagent
   (:require
    [css-cljs.reagent :as creg]
-   [reagent.core :as r]
    [reagent.dom :as rd]))
 
 (defn InnerView

@@ -1,1 +1,4 @@
-{:lint-as {}}
+{:lint-as {rum.core/defcs clojure.core/def,
+           rum.core/defc clojure.core/def,
+           css-cljs.reagent/defstyled clojure.core/def,
+           css-cljs.rum/defstyled clojure.core/def}}
