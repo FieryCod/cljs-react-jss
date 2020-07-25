@@ -9,7 +9,7 @@
    [css-cljs.impl :as impl]))
 
 (def ThemeProvider (r/adapt-react-class rjss/ThemeProvider))
-(def JSSProvider (r/adapt-react-class rjss/JssProvider))
+(def JssProvider (r/adapt-react-class rjss/JssProvider))
 (js-constructor->cljs-fn "sheets-registry" rjss/SheetsRegistry)
 (def sheets-registry->ssr-css-tag impl/sheets-registry->ssr-css-tag)
 (def client-remove-ssr-css-tag impl/client-remove-ssr-css-tag)
@@ -34,3 +34,7 @@
        (r/reactify-component
         (with-meta (React->ReactWrapped component) (meta component))))
       "JssContextSubscriber"))))
+
+(def MinificationProvider (impl/set-display-name
+                           (impl/MinificationProvider JssProvider)
+                           "JssProviderWrapper"))

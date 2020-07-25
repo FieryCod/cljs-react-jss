@@ -11,6 +11,7 @@
   :dependencies [[org.clojure/clojure "1.10.1" :scope "provided"]
                  [org.clojure/clojurescript "1.10.764" :scope "provided"]
                  [thheller/shadow-cljs "2.10.17" :scope "provided"]
+                 [cljsjs/react-jss "10.3.0-0"]
                  [cljs-bean "1.5.0"]]
 
   :resource-paths []

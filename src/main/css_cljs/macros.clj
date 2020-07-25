@@ -10,4 +10,4 @@
   [aname tag]
   `(def ~(symbol aname)
      (fn [opts# children#]
-       ^js (js/React.createElement ~tag (cljs-bean.core/->js opts#) children#))))
+       ^js.React/Component (js/React.createElement ~tag (cljs-bean.core/->js opts#) children#))))

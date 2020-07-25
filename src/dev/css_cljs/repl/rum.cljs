@@ -24,5 +24,6 @@
    View])
 
 (rum/mount
- (crum/ThemeProvider {:theme {:default-font-color {:color "red"}}} (StyledView 1))
+ (crum/MinificationProvider {:module-prefix "v"}
+  (crum/ThemeProvider {:theme {:default-font-color {:color "red"}}} (StyledView 1)))
  (js/document.getElementById "root"))
