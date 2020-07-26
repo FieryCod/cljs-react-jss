@@ -54,7 +54,7 @@
       (let [prefix (or (gobj/getValueByKeys sheet "options" "classNamePrefix") "")
             jss-id (or (some-> (gobj/getValueByKeys sheet "options" "jss" "id") str) "")]
         (if df/minify?
-          (str module-prefix "-" jss-id "-" @counter)
+          (str module-prefix jss-id @counter)
           (str prefix
                (.-key rule)
                "-"
