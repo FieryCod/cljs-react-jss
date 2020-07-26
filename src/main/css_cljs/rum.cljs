@@ -22,10 +22,10 @@
 
 (defn with-styles
   [styles-or-fn & [opts]]
-  (fn [component]
+  (fn [component-fn]
     (fn [& component-args]
-      (assert (not= (meta component) nil) "Component should be wrapped with styles using (css-cljs.rum/defstyled ~component-name [styles-wrap component-to-wrap])")
-      (let [component-meta (meta component)
+      (let [[component component-meta] (component-fn)
+            _ (assert (not= component-meta nil) "Component should be wrapped with styles using (css-cljs.rum/defstyled ~component-name [styles-wrap component-to-wrap])")
             rum-wrap (impl/set-display-name (apply React->ReactWrapped component component-args)
                                             (:display-name-inner component-meta))
             ctor ((impl/with-styles styles-or-fn opts) rum-wrap)

@@ -31,7 +31,7 @@
                 :requires ["react"]
                 :global-exports '{react-jss ReactJSS})
      (pom :project 'cljsjs/react-jss
-          :dependencies [['cljsjs/react "16.13.1-0"]])
+          :dependencies [])
      (show :fileset true)
      (jar))))
 

@@ -6,5 +6,8 @@
         afn# (first body)
         component# (second body)
         full-name# (str component#)]
-    `(def ~aname (~afn# (with-meta ~component# {:display-name-inner ~full-name-inner#
-                                                :display-name ~full-name#})))))
+    `(def ~aname (css-cljs.impl/dce-builder!
+                  ~afn#
+                  #(-> [~component#
+                        {:display-name-inner ~full-name-inner#
+                         :display-name ~full-name#}])))))

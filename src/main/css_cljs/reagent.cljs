@@ -30,11 +30,9 @@
     (assert (not= (meta component) nil) "Component should be wrapped with styles using (css-cljs.reagent/defstyled ~component-name [styles-wrap component-to-wrap])")
     (r/adapt-react-class
      (impl/set-display-name
-      ((impl/with-styles styles-or-fn opts)
-       (r/reactify-component
-        (with-meta (React->ReactWrapped component) (meta component))))
+      ((impl/dce-builder! #(impl/with-styles styles-or-fn opts))
+       (r/reactify-component (with-meta (React->ReactWrapped component) (meta component))))
       "JssContextSubscriber"))))
 
-(def JssProviderWithMinification (impl/set-display-name
-                                  (impl/JssProviderWithMinification JssProvider)
-                                  "JssProviderWithMinification"))
+(def JssProviderWithMinification
+  (impl/set-display-name (impl/JssProviderWithMinification JssProvider) "JssProviderWithMinification"))

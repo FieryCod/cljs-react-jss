@@ -1,8 +1,8 @@
 (ns css-cljs.impl
   (:require
    [css-cljs.def :as df]
+   [goog.functions :as fns]
    [goog.object :as gobj]
-   [react :as react]
    [clojure.string :as string]
    [react-jss :as rjss]
    [cljs-bean.core :refer [->js ->clj bean]]))
@@ -32,10 +32,13 @@
    (as-> (js/document.getElementById id) ^js ssr-styles
      (.. ssr-styles -parentNode (removeChild ssr-styles)))))
 
-(defn set-display-name
-  [^js component display-name]
-  (gobj/set component "displayName" display-name)
-  component)
+(def set-display-name
+  (if df/with-rename?
+    (fn [^js component display-name]
+      (gobj/set component "displayName" display-name)
+      component)
+    (fn [^js component _]
+      component)))
 
 (defn create-generate-id
   "Based on the following answer:
@@ -59,13 +62,25 @@
 (def ^:const gen-id-props [:module-prefix])
 
 (defn JssProviderWithMinification
-[^js jss-provider]
-(fn [props child]
-  (as-> (merge {:generateId (create-generate-id (select-keys props gen-id-props))}
-               (apply dissoc props (conj gen-id-props :generateId)))
-      final-props
-    (if (fn? jss-provider)
-      ;; Rum
-      (jss-provider final-props child)
-      ;; Reagent
-      [jss-provider final-props child]))))
+  [^js jss-provider]
+  (fn [props child]
+    (as-> (merge {:generateId (create-generate-id (select-keys props gen-id-props))}
+                 (apply dissoc props (conj gen-id-props :generateId)))
+        final-props
+      (if (fn? jss-provider)
+        ;; Rum
+        (jss-provider final-props child)
+        ;; Reagent
+        [jss-provider final-props child]))))
+
+(defn- set-meta! [c]
+  (let [f #(let [ctr (c)]
+             (.apply ctr ctr (js-arguments)))]
+    (specify! f IMeta (-meta [_] (meta (c))))
+    f))
+
+(defn dce-builder!
+  [afn & args]
+  (let [bf #(apply afn args)
+        c  (fns/cacheReturnValue bf)]
+    (set-meta! c)))
