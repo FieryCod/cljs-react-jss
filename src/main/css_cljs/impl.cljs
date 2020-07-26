@@ -10,12 +10,13 @@
 (def ^:const default-ssr-id "server-side-styles")
 
 (defn with-styles
-  [styles-or-fn opts]
+  [styles-or-fn {:keys [merge-styles?] :as opts}]
   (rjss/withStyles
    (if (fn? styles-or-fn)
-     (fn [^js theme] (->js (styles-or-fn (->clj (bean theme)))))
+     (fn [^js theme] (->js (cond-> (styles-or-fn (->clj (bean theme)))
+                            merge-styles? (assoc :__merge-styles__ #js {}))))
      (->js styles-or-fn))
-   (->js (or opts {}))))
+   (->js (or (dissoc opts [:merge-styles?]) {}))))
 
 (defn sheets-registry->ssr-css-tag
   ([^js sheets-registry]

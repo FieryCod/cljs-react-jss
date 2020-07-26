@@ -15,10 +15,17 @@
 (def sheets-registry->ssr-css-tag impl/sheets-registry->ssr-css-tag)
 (def client-remove-ssr-css-tag impl/client-remove-ssr-css-tag)
 
+(defn- split-args-by-styles
+  [component-args]
+  (if (:__merge-styles__ (first component-args))
+    [(dissoc (first component-args) :__merge-styles__) (rest component-args)]
+    [nil component-args]))
+
 (defn- React->ReactWrapped
   [component & component-args]
   (fn [^js props]
-    (apply component (cljs-bean/bean (.-classes props)) component-args)))
+    (let [[additional-styles args] (split-args-by-styles component-args)]
+      (apply component (merge (cljs-bean/bean (.-classes props)) additional-styles) args))))
 
 (defn with-styles
   [styles-or-fn & [opts]]
