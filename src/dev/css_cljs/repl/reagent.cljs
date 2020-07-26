@@ -26,7 +26,7 @@
 (creg/defstyled ViewStyled
   [(creg/with-styles {:wrapper {:padding "20px"}}) View])
 
-(rd/render [creg/ThemeProvider {:theme {:background-color "red"}}
-            [creg/MinificationProvider {}
+(rd/render [creg/JssProviderWithMinification {}
+            [creg/ThemeProvider {:theme {:background-color "red"}}
              [ViewStyled]]]
            (js/document.getElementById "root"))

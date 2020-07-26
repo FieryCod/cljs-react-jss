@@ -34,4 +34,4 @@
         (impl/set-display-name ctor "JssContextSubscriber")
         (react/createElement ctor #js {} nil)))))
 
-(def MinificationProvider (impl/MinificationProvider JssProvider))
+(def JssProviderWithMinification (impl/JssProviderWithMinification JssProvider))

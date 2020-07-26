@@ -35,6 +35,6 @@
         (with-meta (React->ReactWrapped component) (meta component))))
       "JssContextSubscriber"))))
 
-(def MinificationProvider (impl/set-display-name
-                           (impl/MinificationProvider JssProvider)
-                           "JssProviderWrapper"))
+(def JssProviderWithMinification (impl/set-display-name
+                                  (impl/JssProviderWithMinification JssProvider)
+                                  "JssProviderWithMinification"))

@@ -17,7 +17,7 @@
     <url>https://github.com/FieryCod/cljs-react-jss</url>
     <connection>scm:git:git://github.com/FieryCod/cljs-react-jss.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/FieryCod/cljs-react-jss.git</developerConnection>
-    <tag>7679ddfc001a0260de4ac20c0d9668c2b9724f4e</tag>
+    <tag>9d568f31d4e53a6c05781aeabc518af6d85c33e7</tag>
   </scm>
   <build>
     <sourceDirectory>src/main</sourceDirectory>
@@ -69,6 +69,11 @@
       <artifactId>shadow-cljs</artifactId>
       <version>2.10.17</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>cljsjs</groupId>
+      <artifactId>react-jss</artifactId>
+      <version>10.3.0-0</version>
     </dependency>
     <dependency>
       <groupId>cljs-bean</groupId>

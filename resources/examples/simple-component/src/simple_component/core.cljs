@@ -1,12 +1,9 @@
 (ns ^:figwheel-hooks simple-component.core
   (:require
-   ["react-jss" :as react-jss]
    [css-cljs.rum :as crum]
-   [css-cljs.core :as csc]
    [goog.dom :as gdom]
    [rum.core :as rum]))
 
-(js/console.log react-jss)
 
 ;; (set! *warn-on-infer* true)
 
@@ -30,12 +27,25 @@
               {:wrapper {:background-color "red"
                          :color (:color theme)}}))
 
-(def StyledHelloWorld ((crum/with-styles styles) HelloWorld))
+(crum/defstyled StyledHelloWorld [(crum/with-styles styles) HelloWorld])
+
+(rum/defc HelloWorldIShouldBeRemoved
+  [classes]
+  [:div {:class (:wrapper classes)}
+   [:h1 (:text @app-state)]
+   [:h3 "I Should be removed"]])
+
+(crum/defstyled HelloWorldIShouldBeRemovedStyled
+  [(crum/with-styles styles) HelloWorldIShouldBeRemoved])
 
 (def theme {:color "white"})
 
 (defn mount [el]
-  (rum/mount (csc/ThemeProvider {:theme theme} (StyledHelloWorld)) el))
+  (rum/mount
+   (crum/JssProviderWithMinification {}
+                                     (crum/ThemeProvider {:theme theme}
+                                                         (StyledHelloWorld)))
+   el))
 
 (defn mount-app-element []
   (when-let [el (get-app-element)]

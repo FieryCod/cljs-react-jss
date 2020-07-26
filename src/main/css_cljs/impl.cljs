@@ -41,32 +41,31 @@
   "Based on the following answer:
   https://github.com/cssinjs/jss/issues/1200#issuecomment-537896517"
   [& [{:keys [module-prefix] :or {module-prefix "v"}}]]
-  (let [counter (volatile! 0)
+  (let [counter (volatile! -1)
         max-rules 1e10]
     (fn [^js rule ^js sheet]
       (vswap! counter inc)
-      (if (> @counter max-rules)
-        (js/console.error "[JSS] You might have a memory leak.")
-        (let [prefix (or (gobj/getValueByKeys sheet "options" "classNamePrefix") "")
-              jss-id (or (some-> (gobj/getValueByKeys sheet "options" "jss" "id") str) "")]
-          (if df/minify-selectors
-            (str module-prefix "-" jss-id "-" @counter)
-            (str prefix
-                 (.-key rule)
-                 "-"
-                 (if (string/blank? jss-id) "" (str jss-id "-"))
-                 @counter)))))))
+      (assert (< @counter max-rules) "[css-cljs.impl/create-generate-id] You might have a memory leak. To many rules has been used.")
+      (let [prefix (or (gobj/getValueByKeys sheet "options" "classNamePrefix") "")
+            jss-id (or (some-> (gobj/getValueByKeys sheet "options" "jss" "id") str) "")]
+        (if df/minify?
+          (str module-prefix "-" jss-id "-" @counter)
+          (str prefix
+               (.-key rule)
+               "-"
+               (if (string/blank? jss-id) "" (str jss-id "-"))
+               @counter))))))
 
 (def ^:const gen-id-props [:module-prefix])
 
-(defn MinificationProvider
-  [^js jss-provider]
-  (fn [props child]
-    (as-> (merge {:generateId (create-generate-id (select-keys props gen-id-props))}
-                 (apply dissoc props gen-id-props))
-        final-props
-      (if (fn? jss-provider)
-        ;; Rum
-        (jss-provider final-props child)
-        ;; Reagent
-        [jss-provider final-props child]))))
+(defn JssProviderWithMinification
+[^js jss-provider]
+(fn [props child]
+  (as-> (merge {:generateId (create-generate-id (select-keys props gen-id-props))}
+               (apply dissoc props (conj gen-id-props :generateId)))
+      final-props
+    (if (fn? jss-provider)
+      ;; Rum
+      (jss-provider final-props child)
+      ;; Reagent
+      [jss-provider final-props child]))))
