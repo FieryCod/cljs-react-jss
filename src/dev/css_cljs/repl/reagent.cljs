@@ -21,12 +21,17 @@
 
 (defn View
   [classes]
-  [:div {:class [(:wrapper classes)]} [InnerViewStyled "InnerView" AnotherComponentStyled]])
+  [:div {:class [(:wrapper classes) (:additional classes)]} [InnerViewStyled "InnerView" AnotherComponentStyled]])
 
 (creg/defstyled ViewStyled
   [(creg/with-styles {:wrapper {:padding "20px"}}) View])
 
+(creg/defstyled StyleViewWithAdditionalStyles
+  [(creg/with-styles (fn [_] {:additional {:border "1px solid black"}})
+     {:merge-styles? true})
+   ViewStyled])
+
 (rd/render [creg/JssProviderWithMinification {}
             [creg/ThemeProvider {:theme {:background-color "red"}}
-             [ViewStyled]]]
+             [StyleViewWithAdditionalStyles]]]
            (js/document.getElementById "root"))

@@ -17,7 +17,7 @@
     <url>https://github.com/FieryCod/cljs-react-jss</url>
     <connection>scm:git:git://github.com/FieryCod/cljs-react-jss.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/FieryCod/cljs-react-jss.git</developerConnection>
-    <tag>a4d526ac75a7f90691a531cdf9482ed54dfd5fb0</tag>
+    <tag>5b22e2df3eec272a7c4d038010d7d9ae752cd595</tag>
   </scm>
   <build>
     <sourceDirectory>src/main</sourceDirectory>

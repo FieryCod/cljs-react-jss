@@ -6,6 +6,10 @@
         afn# (first body)
         component# (second body)
         full-name# (str component#)]
-    `(def ~aname (~afn# (with-meta ~component#
-                          {:display-name-inner ~full-name-inner#
-                           :display-name ~full-name#})))))
+    `(def ~aname
+       (~afn# (if (instance? reagent.impl.template/NativeWrapper ~component#)
+                (fn [& args#]
+                  (conj [~component#] args#))
+                ~component#)
+        {:display-name-inner ~full-name-inner#
+         :display-name ~full-name#}))))
