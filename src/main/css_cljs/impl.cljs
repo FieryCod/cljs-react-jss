@@ -68,7 +68,7 @@
   (fn [props child]
     (as-> (merge {:generateId (create-generate-id (select-keys props gen-id-props))}
                  (apply dissoc props (conj gen-id-props :generateId)))
-        final-props
+          final-props
       (if (fn? jss-provider)
         ;; Rum
         (jss-provider final-props child)

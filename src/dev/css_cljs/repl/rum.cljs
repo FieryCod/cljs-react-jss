@@ -13,7 +13,6 @@
 (crum/defstyled StyledInnerView
   [(crum/with-styles {:wrapper {:padding "20px"}}) InnerView])
 
-
 (rum/defc View
   [classes]
   [:div {:class [(:wrapper classes) (:additional classes)]} (StyledInnerView "InnerView")])
@@ -23,7 +22,6 @@
                        (assoc-in ViewStyles [:wrapper] (:default-font-color theme))))
    View])
 
-
 (crum/defstyled StyleViewWithAdditionalStyles
   [(crum/with-styles (fn [_] {:additional {:border "1px solid black"}})
      {:merge-styles? true})
@@ -31,5 +29,6 @@
 
 (rum/mount
  (crum/JssProviderWithMinification {:module-prefix "v"}
-    (crum/ThemeProvider {:theme {:default-font-color {:color "red"}}} (StyleViewWithAdditionalStyles 1)))
+                                   (crum/ThemeProvider {:theme {:default-font-color {:color "red"}}}
+                                                       (StyleViewWithAdditionalStyles 1)))
  (js/document.getElementById "root"))

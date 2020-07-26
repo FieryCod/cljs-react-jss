@@ -19,9 +19,9 @@
 (defn- split-args-by-styles
   [component-args]
   (let [first-arg (first component-args)]
-  (if (and (string? first-arg) (string/includes? first-arg ":__merge-styles__"))
-    [(dissoc (edn/read-string first-arg) :__merge-styles__) (rest component-args)]
-    [nil component-args])))
+    (if (and (string? first-arg) (string/includes? first-arg ":__merge-styles__"))
+      [(dissoc (edn/read-string first-arg) :__merge-styles__) (rest component-args)]
+      [nil component-args])))
 
 (defn- React->ReactWrapped
   [component]
