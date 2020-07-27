@@ -10,7 +10,7 @@
    [component]])
 
 (creg/defstyled InnerViewStyled
-  [(creg/with-styles {:wrapper {:color "red"}}) InnerView])
+  [{:wrapper {:color "red"}} InnerView])
 
 (defn AnotherComponent
   [classes]
@@ -32,6 +32,6 @@
    ViewStyled])
 
 (rd/render [creg/JssProviderWithMinification {}
-            [creg/ThemeProvider {:theme {:background-color "red"}}
+            [creg/ThemeProvider {:theme {:theme-property {:background-color "red"}}}
              [StyleViewWithAdditionalStyles]]]
-           (js/document.getElementById "root"))
+           (js/document.getElementById "test-root"))

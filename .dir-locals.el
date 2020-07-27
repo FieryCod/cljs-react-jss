@@ -7,4 +7,5 @@
   ;; This tells shadow cljs what to build and should match a key in your shadow-cljs.edn
   ;; build map. e.g :builds {:<some-key> {...}}
   ;; pramas passed to shadow-cljs to start nrepl via cider-jack-in
-  (cider-shadow-default-options . "dev")))
+  ;; (cider-shadow-default-options . "dev")
+  ))

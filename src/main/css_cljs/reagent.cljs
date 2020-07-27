@@ -3,6 +3,7 @@
    [css-cljs.reagent]
    [css-cljs.macros :refer [js-constructor->cljs-fn]])
   (:require
+   [clojure.walk :as walk]
    [clojure.edn :as edn]
    [cljs-bean.core :refer [bean]]
    [clojure.string :as string]
@@ -10,8 +11,22 @@
    [reagent.core :as r]
    [css-cljs.impl :as impl]))
 
-(def ThemeProvider (r/adapt-react-class rjss/ThemeProvider))
-(def JssProvider (r/adapt-react-class rjss/JssProvider))
+(def ^:private ThemeProviderImpl (r/adapt-react-class rjss/ThemeProvider))
+(def ^:private JssProviderImpl (r/adapt-react-class rjss/JssProvider))
+
+(defn stringify-keys
+  [m]
+  (let [f (fn [[k v]] (if (keyword? k) [(name k) v] [k v]))]
+    (walk/postwalk (fn [x] (if (map? x) (into {} (map f x)) x)) m)))
+
+(def ThemeProvider
+  (fn [opts child]
+    [ThemeProviderImpl (stringify-keys opts) child]))
+
+(def JssProvider
+  (fn [opts child]
+    [JssProviderImpl (stringify-keys opts) child]))
+
 (js-constructor->cljs-fn "sheets-registry" rjss/SheetsRegistry)
 (def sheets-registry->ssr-css-tag impl/sheets-registry->ssr-css-tag)
 (def client-remove-ssr-css-tag impl/client-remove-ssr-css-tag)

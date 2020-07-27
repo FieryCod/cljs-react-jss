@@ -31,4 +31,4 @@
  (crum/JssProviderWithMinification {:module-prefix "v"}
                                    (crum/ThemeProvider {:theme {:default-font-color {:color "red"}}}
                                                        (StyleViewWithAdditionalStyles 1)))
- (js/document.getElementById "root"))
+ (js/document.getElementById "test-root"))

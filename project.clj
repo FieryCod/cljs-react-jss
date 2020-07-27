@@ -21,7 +21,9 @@
 
   :profiles
   {:dev {:source-paths
-         ["src/main" "src/dev"]
+         ["src/main"
+          "src/dev"
+          "test/main"]
 
          :dependencies
          [[rum "0.12.3"]
