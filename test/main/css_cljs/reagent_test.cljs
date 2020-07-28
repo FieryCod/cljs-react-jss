@@ -13,6 +13,12 @@
 (def styles {:wrapper {:background-color "red"
                        :visibility "hidden"}})
 
+;;----------------------------------------------------;;
+;;                                                    ;;
+;;               Higher order component API           ;;
+;;                                                    ;;
+;;----------------------- START-----------------------;;
+
 (css/defstyled SimpleComponentStyled
   [(css/with-styles styles) SimpleComponentClassesPrint!])
 
@@ -65,3 +71,5 @@
                     (vals (ut/component->out [css/JssProviderWithMinification {} [SimpleComponentAdditionalPrint!Styled]])))))))
 
 (ut/cleanup-after-every!)
+
+;;----------------------- END-----------------------;;

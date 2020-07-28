@@ -1,0 +1,44 @@
+#
+# Check https://circleci.com/docs/2.0/language-clojure/ for more details
+#
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: thheller/cljs-dev:latest
+  environment:
+    LEIN_ROOT: "true"
+    # Customize the JVM maximum heap limit
+    JVM_OPTS: -Xmx3200m
+
+version: 2
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - m2-deps-{{ checksum "project.clj" }}
+          - m2-deps-
+
+      - run:
+          command: |
+            lein with-profiles +cljs deps
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: m2-deps-{{ checksum "project.clj" }}
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: m2-deps-{{ checksum "project.clj" }}
+
+      - run: yarn
+
+      - run:
+          command: |
+            yarn shadow-cljs compile ci && \
+            yarn karma start --single-run
