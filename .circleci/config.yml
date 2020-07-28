@@ -1,0 +1,53 @@
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: fierycod/clojure-node-12v
+  environment:
+    LEIN_ROOT: "true"
+    # Customize the JVM maximum heap limit
+    JVM_OPTS: -Xmx3200m
+
+version: 2
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - m2-deps-{{ checksum "project.clj" }}
+          - m2-deps-
+
+      - run:
+          command: |
+            lein with-profiles +dev deps
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: m2-deps-{{ checksum "project.clj" }}
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: m2-deps-{{ checksum "project.clj" }}
+
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --immutable
+
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      - run:
+          command: |
+            yarn shadow-cljs compile ci && \
+            yarn karma start --single-run

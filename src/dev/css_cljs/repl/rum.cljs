@@ -30,5 +30,6 @@
 (rum/mount
  (crum/JssProviderWithMinification {:module-prefix "v"}
                                    (crum/ThemeProvider {:theme {:default-font-color {:color "red"}}}
-                                                       (StyleViewWithAdditionalStyles 1)))
- (js/document.getElementById "test-root"))
+                                                       (StyleViewWithAdditionalStyles)))
+
+ (js/document.getElementById "root"))
