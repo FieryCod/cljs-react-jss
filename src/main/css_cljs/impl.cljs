@@ -19,8 +19,6 @@
   (rjss/withStyles
    (if (fn? styles-or-fn)
      (fn [^js theme]
-       ;; (println "THEME" theme)
-       ;; (println "XDD")
        (->js (decorate-stylesheet (styles-or-fn (->clj theme)) opts)))
      (->js (decorate-stylesheet styles-or-fn opts)))
    (->js (or (dissoc opts :merge-styles?) {}))))

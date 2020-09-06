@@ -1,4 +1,5 @@
-{:lint-as {rum.core/defcs clojure.core/def,
-           rum.core/defc clojure.core/def,
+{:hooks {:analyze-call {rum.core/defc hooks.rum/defc
+                        rum.core/defcs hooks.rum/defcs}}
+ :lint-as {rum.core/defcc rum.core/defc
            css-cljs.reagent/defstyled clojure.core/def,
            css-cljs.rum/defstyled clojure.core/def}}

@@ -1,11 +1,7 @@
-
-#
-# Check https://circleci.com/docs/2.0/language-clojure/ for more details
-#
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: thheller/cljs-dev:latest
+    - image: fierycod/clojure-node-12v
   environment:
     LEIN_ROOT: "true"
     # Customize the JVM maximum heap limit
@@ -18,8 +14,6 @@ jobs:
     steps:
       - checkout
 
-      - run: yarn
-
       - restore_cache:
           keys:
           - m2-deps-{{ checksum "project.clj" }}
@@ -27,8 +21,7 @@ jobs:
 
       - run:
           command: |
-            make publish-local && \
-            lein with-profiles +cljs deps
+            lein with-profiles +dev deps
 
       - save_cache:
           paths:
@@ -39,6 +32,20 @@ jobs:
           paths:
             - ~/.m2
           key: m2-deps-{{ checksum "project.clj" }}
+
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --immutable
+
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
 
       - run:
           command: |

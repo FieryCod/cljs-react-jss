@@ -1,3 +1,9 @@
+docker-login:
+	@docker login -u $(DOCKER_LOGIN_USERNAME) -p $(DOCKER_LOGIN_PASSWORD)
+
+docker-push-images: docker-login
+	docker build resources/dockerfiles/ -f resources/dockerfiles/clojure-node12.dockerfile -t fierycod/clojure-node-12v
+	docker push fierycod/clojure-node-12v
 
 externs:
 	yarn run webpack --mode=production && \
@@ -15,10 +21,10 @@ publish-local:
 	make package-local
 	lein install
 
-shadow:
-	@yarn shadow-cljs -d "nrepl:0.8.0-alpha5" \
+shadow-dev:
+	@yarn shadow-cljs -d "nrepl/nrepl:0.8.1" \
 		 							  -d "cider/piggieback:0.5.0" \
 		                -d "com.billpiel/sayid:0.0.18" \
-	                  -d "refactor-nrepl:2.5.0" \
+	                  -d "refactor-nrepl/refactor-nrepl:2.5.0" \
 	                  -d "cider/cider-nrepl:0.25.3-SNAPSHOT" \
                     server
