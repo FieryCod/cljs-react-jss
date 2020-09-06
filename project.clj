@@ -3,9 +3,9 @@
   :url "https://github.com/FieryCod/cljs-react-jss"
   :license {:name "MIT"
             :url "https://raw.githubusercontent.com/FieryCod/cljs-react-jss/master/LICENSE"}
-
+  :scm {:name "git" :url "https://github.com/FieryCod/cljs-react-jss"}
   :repositories
-  {"clojars" {:url "https://clojars.org/repo"
+  {"clojars" {:url "https://clojars.org/fierycod/cljs-react-jss"
               :sign-releases false}}
 
   :dependencies [[org.clojure/clojure "1.10.1" :scope "provided"]
